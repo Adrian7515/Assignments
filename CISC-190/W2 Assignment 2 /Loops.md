@@ -12,11 +12,30 @@ public class ScoreAnalyzer {
         int passing = 0;
         int below60 = 0;
 
-        System.out.print("Enter a scor efrom 0 to 100 (-1 to finish): ");
+        System.out.print("Enter a score from 0 to 100 (-1 to finish): ");
         double score = input.nextDouble();
 
         while (score != -1) {
             if (score >=0 && score <=100) {
+                count++;
+                total += score;
+
+                if (count == 1) {
+                    highest = score;
+                    lowest = score;
+                } else {
+                    if (score > highest) {
+                        highest = score;
+                    }
+                    if (score < lowest) {
+                        lowest = score;
+                    }
+                }
+                if (score >= 60) {
+                    passing++;
+                } else {
+                    below60++;
+                }
 
             } else {
                 System.out.println("Invalid score. Value ignored.");
@@ -24,5 +43,19 @@ public class ScoreAnalyzer {
             System.out.print("Enter a score from 0 to 100 (-1 to finish): ");
             score = input.nextDouble();
         }
+        if (count > 0) {
+            double average = total/ count;
+
+            System.out.println("----- Score Summary -----");
+            System.out.println("Valid scores: " + count);
+            System.out.printf("Average: %.2f%n", average);
+            System.out.printf("Highest: %.2f%n", highest);
+            System.out.printf("Lowest: %.2f%n", lowest);
+            System.out.println("Passing scores: " + passing);
+            System.out.println("Below 60: " + below60);
+        } else {
+            System.out.println("No valid scores were entered.");
+        }
     }
 }
+

@@ -59,3 +59,15 @@ public class ScoreAnalyzer {
     }
 }
 
+import java.util.Scanner;
+public class ScoreAnalyzerDoWhile {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        double score;
+        do {
+            System.out.print("Enter a score from 0 to 100 (-1 to finish): ");
+            score = input.nextDouble();
+        } while (score != -1);
+    }
+}
+

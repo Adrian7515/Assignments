@@ -31,6 +31,8 @@ public class GridValidator {
         System.out.println("All regions valid: " + areRegionsValid(grid));
 
         System.out.println("Entire grid valid: " + isValidGrid(grid));
+
+        diagnoseGrid(grid);
     }
 
     public static boolean valuesInRange(int[][] grid) {
@@ -55,6 +57,10 @@ public class GridValidator {
         for (int column = 0; column < grid[row].length; column++) {
 
             int value = grid[row][column];
+
+            if (value < 1 || value > 9) {
+                return false;
+            }
 
             if (seen[value]) {
                 return false;
@@ -183,4 +189,49 @@ public class GridValidator {
 
         return true;
     }
+
+    public static void diagnoseGrid(int[][] grid) {
+
+        for (int row = 0; row < grid.length; row++) {
+
+            for (int column = 0; column < grid[row].length; column++) {
+
+                if (grid[row][column] < 1 || grid[row][column] > 9) {
+                    System.out.println("Invalid value at row " + row + ", column " + column);
+                    return;
+                }
+
+            }
+        }
+
+        for (int row = 0; row < grid.length; row++) {
+
+            if (!isRowValid(grid, row)) {
+                System.out.println("Duplicate detected in row " + row);
+                return;
+            }
+        }
+
+        for (int column = 0; column < grid[0].length; column++) {
+
+            if (!isColumnValid(grid, column)) {
+                System.out.println("Duplicate detected in column " + column);
+                return;
+            }
+        }
+
+        for (int row = 0; row < 9; row += 3) {
+
+            for (int column = 0; column < 9; column += 3) {
+
+                if (!isRegionValid(grid, row, column)) {
+                    System.out.println("Invalid 3x3 region beginning at row " + row + ", column " + column);
+                    return;
+                }
+            }
+        }
+
+        System.out.println("Grid is valid.");
+    }
 }
+
